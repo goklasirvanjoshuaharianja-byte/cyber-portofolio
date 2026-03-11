@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
 BOOT ENTRANCE
 ========================= */
 
-const boot=document.getElementById("boot-screen")
-const terminal=document.getElementById("boot-terminal")
-const progress=document.getElementById("progress-bar")
-const hero=document.querySelector(".hero")
+const boot = document.getElementById("boot-screen")
+const terminal = document.querySelector(".boot-terminal")
+const progress = document.getElementById("progress-bar")
+const hero = document.querySelector(".hero")
 
 if(boot){
 
-const visited=sessionStorage.getItem("visited")
+const visited = sessionStorage.getItem("visited")
 
 if(visited){
 
@@ -136,11 +136,8 @@ if(input){
 const commands={
 
 help:"about, skills, github, clear",
-
 about:"Cyber security enthusiast and web developer.",
-
 skills:"JavaScript, Node.js, Linux, Networking",
-
 github:"github.com/goklasirvanjoshuaharianja-byte"
 
 }
@@ -186,138 +183,87 @@ output.scrollTop=output.scrollHeight
 }
 
 /* =========================
-GITHUB PROJECT LOADER
+SKILL RADAR
 ========================= */
 
-const grid=document.getElementById("projects-grid")
+const radar=document.getElementById("skill-radar")
 
-if(grid){
+if(radar){
 
-fetch("https://api.github.com/users/goklasirvanjoshuaharianja-byte/repos")
+const ctx=radar.getContext("2d")
 
-.then(res=>res.json())
-
-.then(data=>{
-
-grid.innerHTML=""
-
-data.slice(0,6).forEach(repo=>{
-
-const card=document.createElement("div")
-
-card.className="project-card"
-
-card.innerHTML=`
-
-<h3>${repo.name}</h3>
-
-<p>${repo.description || "No description"}</p>
-
-<a href="${repo.html_url}" target="_blank">View</a>
-
-`
-
-grid.appendChild(card)
-
-})
-
-})
-
-}
-/* =========================
-SKILL RADAR (FIXED)
-========================= */
-
-const radar = document.getElementById("skill-radar")
-
-if (radar) {
-
-const ctx = radar.getContext("2d")
-
-const skills = [
-{ name: "HTML", value: 80 },
-{ name: "CSS", value: 75 },
-{ name: "JavaScript", value: 70 },
-{ name: "CyberSec", value: 65 },
-{ name: "Linux", value: 60 }
+const skills=[
+{name:"HTML",value:80},
+{name:"CSS",value:75},
+{name:"JavaScript",value:70},
+{name:"CyberSec",value:65},
+{name:"Linux",value:60}
 ]
 
-const centerX = radar.width / 2
-const centerY = radar.height / 2
-const radius = 150
+const centerX=radar.width/2
+const centerY=radar.height/2
+const radius=150
 
-const step = (Math.PI * 2) / skills.length
+const step=(Math.PI*2)/skills.length
 
-ctx.strokeStyle = "#00ffff"
-ctx.fillStyle = "#00ffff"
-ctx.font = "12px Orbitron"
+ctx.strokeStyle="#00ffff"
+ctx.fillStyle="#00ffff"
+ctx.font="12px Orbitron"
 
-/* GRID CIRCLES */
-
-for (let r = 1; r <= 4; r++) {
+for(let r=1;r<=4;r++){
 
 ctx.beginPath()
-
-ctx.arc(centerX, centerY, (radius / 4) * r, 0, Math.PI * 2)
-
+ctx.arc(centerX,centerY,(radius/4)*r,0,Math.PI*2)
 ctx.stroke()
 
 }
 
-/* AXIS LINES + LABEL */
+skills.forEach((skill,i)=>{
 
-skills.forEach((skill, i) => {
+const angle=step*i-Math.PI/2
 
-const angle = step * i - Math.PI / 2
-
-const x = centerX + Math.cos(angle) * radius
-const y = centerY + Math.sin(angle) * radius
+const x=centerX+Math.cos(angle)*radius
+const y=centerY+Math.sin(angle)*radius
 
 ctx.beginPath()
-ctx.moveTo(centerX, centerY)
-ctx.lineTo(x, y)
+ctx.moveTo(centerX,centerY)
+ctx.lineTo(x,y)
 ctx.stroke()
 
 ctx.fillText(
 skill.name,
-centerX + Math.cos(angle) * (radius + 15),
-centerY + Math.sin(angle) * (radius + 15)
+centerX+Math.cos(angle)*(radius+15),
+centerY+Math.sin(angle)*(radius+15)
 )
 
 })
 
-/* SKILL POLYGON */
-
 ctx.beginPath()
 
-skills.forEach((skill, i) => {
+skills.forEach((skill,i)=>{
 
-const angle = step * i - Math.PI / 2
+const angle=step*i-Math.PI/2
+const valueRadius=(skill.value/100)*radius
 
-const valueRadius = (skill.value / 100) * radius
+const x=centerX+Math.cos(angle)*valueRadius
+const y=centerY+Math.sin(angle)*valueRadius
 
-const x = centerX + Math.cos(angle) * valueRadius
-const y = centerY + Math.sin(angle) * valueRadius
-
-if (i === 0) {
-ctx.moveTo(x, y)
-} else {
-ctx.lineTo(x, y)
+if(i===0){
+ctx.moveTo(x,y)
+}else{
+ctx.lineTo(x,y)
 }
 
 })
 
 ctx.closePath()
 
-ctx.strokeStyle = "#00ffff"
-
-ctx.fillStyle = "rgba(0,255,255,0.25)"
+ctx.strokeStyle="#00ffff"
+ctx.fillStyle="rgba(0,255,255,0.25)"
 
 ctx.fill()
-
 ctx.stroke()
 
 }
-
 
 })

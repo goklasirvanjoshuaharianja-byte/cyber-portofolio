@@ -1,15 +1,33 @@
-<section class="projects-page">
-
-<div class="projects-container">
+<main class="projects-page">
 
 <h1 class="projects-title">GitHub Projects</h1>
 
-<div id="projects-grid" class="projects-grid">
+<div class="projects-grid">
 
-Loading projects...
+<% if(!repos || repos.length === 0){ %>
+
+<p style="color:#00ffff">No repositories found.</p>
+
+<% } %>
+
+<% repos.forEach(repo => { %>
+
+<div class="project-card">
+
+<h3><%= repo.name %></h3>
+
+<p>
+<%= repo.description ? repo.description : "No description" %>
+</p>
+
+<a href="<%= repo.html_url %>" target="_blank">
+View
+</a>
 
 </div>
 
+<% }) %>
+
 </div>
 
-</section>
+</main>
