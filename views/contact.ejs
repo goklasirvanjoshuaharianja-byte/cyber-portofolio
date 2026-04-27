@@ -1,22 +1,27 @@
 <section class="contact-page">
 
-<div class="contact-card">
+  <div class="contact-card">
 
-<h1 class="contact-title">Contact Me</h1>
+    <h1 class="contact-title">Contact Me</h1>
 
-<form class="contact-form" method="POST" action="/contact">
+    <!-- FEEDBACK -->
+    <% if (typeof success !== 'undefined') { %>
+      <p class="success-msg">Message sent successfully!</p>
+    <% } %>
 
-<div class="input-group">
-<input type="text" name="name" placeholder="Name" required>
-<input type="email" name="email" placeholder="Email" required>
-</div>
+    <form class="contact-form" method="POST" action="/contact">
 
-<textarea name="message" rows="6" placeholder="Message" required></textarea>
+      <div class="input-group">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+      </div>
 
-<button type="submit">Send Message</button>
+      <textarea name="message" rows="6" placeholder="Message" required></textarea>
 
-</form>
+      <button type="submit" id="sendBtn">Send Message</button>
 
-</div>
+    </form>
+
+  </div>
 
 </section>
