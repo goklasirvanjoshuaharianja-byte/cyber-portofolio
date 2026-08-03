@@ -1,27 +1,13 @@
-<section class="contact-page">
+<section id="contact">
+  <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">contact.sh</span><div class="sec-line"></div></div>
 
-  <div class="contact-card">
+  <div class="contact-panel">
+    <div class="prompt"><span>$</span> whoami --contact-info</div>
+    <div class="contact-rows">
+      <div class="contact-row"><span class="k">email</span><a class="v" href="mailto:goklasirvanjoshuaharianja@gmail.com">goklasirvanjoshuaharianja@gmail.com</a></div>
+      <div class="contact-row"><span class="k">github</span><a class="v" href="https://github.com/goklasirvanjoshuaharianja-byte" target="_blank" rel="noopener">github.com/goklasirvanjoshuaharianja-byte</a></div>
+      <div class="contact-row"><span class="k">linkedin</span><a class="v" href="#">https://www.linkedin.com/in/goklas-irvan-joshua-harianja-496855406/</a></div>
 
-    <h1 class="contact-title">Contact Me</h1>
-
-    <!-- FEEDBACK -->
-    <% if (typeof success !== 'undefined') { %>
-      <p class="success-msg">Message sent successfully!</p>
-    <% } %>
-
-    <form class="contact-form" method="POST" action="/contact">
-
-      <div class="input-group">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-      </div>
-
-      <textarea name="message" rows="6" placeholder="Message" required></textarea>
-
-      <button type="submit" id="sendBtn">Send Message</button>
-
-    </form>
-
+    </div>
   </div>
-
 </section>

@@ -1,96 +1,61 @@
-const express = require("express");
+// REFERENSI — jangan langsung timpa routes/main.js kamu yang sekarang.
+// Gabungkan bagian ini ke route kamu yang sudah ada (misalnya kalau kamu
+// pakai express-ejs-layouts, view engine, dsb yang sudah diatur di server.js).
+
+const express = require('express');
 const router = express.Router();
-const axios = require("axios");
-const nodemailer = require("nodemailer");
 
-// ambil dari .env
-require("dotenv").config();
+// Edit array ini untuk nambah / ubah project. Cukup edit di sini,
+// tidak perlu sentuh file .ejs lagi.
+const projects = [
+  {
+    name: 'cyber-portofolio',
+    desc: 'Portofolio pribadi bertema cyber security, dibangun untuk showcase project dan skill.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    status: 'active', // active | learning | coursework
+    repo: 'https://github.com/goklasirvanjoshuaharianja-byte/cyber-portofolio',
+    live: null, // isi URL kalau sudah live, atau biarkan null
+  },
+  {
+    name: 'SKM-New',
+    desc: 'Website pertemanan yang bertujuan untuk mencari kemakmuran',
+    tags: ['Node.js'],
+    status: 'learning',
+    repo: 'https://github.com/goklasirvanjoshuaharianja-byte/SKM-New',
+    live: null,
+  },
+  {
+    name: 'Pelari-Kalcer-REVV',
+    desc: 'Web santai untuk belajar Javascript',
+    tags: ['JavaScript'],
+    status: 'learning',
+    repo: 'https://github.com/goklasirvanjoshuaharianja-byte/Pelari-Kalcer-REVV',
+    live: null,
+  },
+  {
+    name: 'Web-TugasASD1',
+    desc: 'Tugas kuliah — struktur data & algoritma, diimplementasikan dalam bentuk web.',
+    tags: ['HTML', 'CSS'],
+    status: 'coursework',
+    repo: 'https://github.com/goklasirvanjoshuaharianja-byte/Web-TugasASD1-GoklasIrvanJoshuaHarianja',
+    live: null,
+  },
+];
 
-const GITHUB_USERNAME = "goklasirvanjoshuaharianja-byte";
-
-/* ======================
-HOME
-====================== */
-router.get("/", (req, res) => {
-  res.render("index");
+router.get('/', (req, res) => {
+  res.render('index', { title: 'Joshua | Cyber Security Portfolio', activePage: 'home' });
 });
 
-/* ======================
-ABOUT
-====================== */
-router.get("/about", (req, res) => {
-  res.render("about");
+router.get('/about', (req, res) => {
+  res.render('about', { title: 'About | Joshua', activePage: 'about' });
 });
 
-/* ======================
-CONTACT (GET)
-====================== */
-router.get("/contact", (req, res) => {
-  res.render("contact", {
-    success: req.query.success
-  });
+router.get('/projects', (req, res) => {
+  res.render('projects', { title: 'Projects | Joshua', activePage: 'projects', projects });
 });
 
-/* ======================
-CONTACT (POST) 🔥
-====================== */
-router.post("/contact", async (req, res) => {
-  const { name, email, message } = req.body;
-
-  try {
-    // transporter
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    // kirim email
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `📩 Portfolio Message - ${name}`,
-      html: `
-        <div style="font-family:sans-serif;">
-          <h2 style="color:#00ffff;">📩 New Message</h2>
-          <p><b>Name:</b> ${name}</p>
-          <p><b>Email:</b> ${email}</p>
-          <p><b>Message:</b></p>
-          <p>${message}</p>
-        </div>
-      `
-    });
-
-    res.redirect("/contact?success=true");
-
-  } catch (err) {
-    console.log(err);
-    res.redirect("/contact?success=false");
-  }
-});
-
-/* ======================
-PROJECTS (GitHub API)
-====================== */
-router.get("/projects", async (req, res) => {
-  try {
-    const response = await axios.get(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos`
-    );
-
-    const repos = response.data
-      .filter(repo => !repo.fork)
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-    res.render("projects", { repos });
-
-  } catch (err) {
-    console.log(err);
-    res.render("projects", { repos: [] });
-  }
+router.get('/contact', (req, res) => {
+  res.render('contact', { title: 'Contact | Joshua', activePage: 'contact' });
 });
 
 module.exports = router;

@@ -1,67 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Joshua | IT Portfolio</title>
-
-<!-- SEO -->
-
-<meta name="description" content="Portfolio of Goklas Irvan Joshua Harianja - Informatics Engineering Student and Cyber Security Enthusiast.">
-<meta name="keywords" content="cyber security, portfolio, ethical hacking, nodejs, web developer">
-<meta name="author" content="Goklas Irvan Joshua Harianja">
-
-<!-- Open Graph (Preview ketika share link) -->
-
-<meta property="og:title" content="Joshua Cyber Portfolio">
-<meta property="og:description" content="Cyber Security Enthusiast Portfolio">
-<meta property="og:type" content="website">
-<meta property="og:image" content="/img/profile.jpg">
-<meta property="og:url" content="https://yourdomain.com">
-
-<!-- Favicon -->
-
-<link rel="icon" type="image/png" href="/img/favicon.png">
-
-<!-- Font -->
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
-
-<!-- CSS -->
-
-<link rel="stylesheet" href="/css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Joshua | Cyber Security Portfolio' %></title>
+  <link rel="icon" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 
-<!-- Navbar -->
+  <%- include('../partials/navbar') %>
 
-<%- include('../partials/navbar') %>
+  <main>
+    <%- body %>
+  </main>
 
-<!-- Page Content -->
+  <%- include('../partials/footer') %>
 
-<main>
-
-<%- body %>
-
-</main>
-
-<!-- Footer -->
-
-<footer class="footer">
-
-<p>© 2026 Goklas Irvan Joshua Harianja</p>
-
-</footer>
-
-<!-- Script -->
-
-<script src="/js/main.js"></script>
-
+  <script src="/js/main.js"></script>
 </body>
-
 </html>

@@ -1,33 +1,26 @@
-<main class="projects-page">
+<section id="projects">
+  <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">projects/</span><div class="sec-line"></div></div>
 
-<h1 class="projects-title">GitHub Projects</h1>
-
-<div class="projects-grid">
-
-<% if(!repos || repos.length === 0){ %>
-
-<p style="color:#00ffff">No repositories found.</p>
-
-<% } %>
-
-<% repos.forEach(repo => { %>
-
-<div class="project-card">
-
-<h3><%= repo.name %></h3>
-
-<p>
-<%= repo.description ? repo.description : "No description" %>
-</p>
-
-<a href="<%= repo.html_url %>" target="_blank">
-View
-</a>
-
-</div>
-
-<% }) %>
-
-</div>
-
-</main>
+  <div class="proj-grid">
+    <% projects.forEach(function(p) { %>
+      <div class="proj-card">
+        <div class="proj-top">
+          <span class="proj-name"><%= p.name %></span>
+          <span class="proj-badge badge-<%= p.status %>"><%= p.status %></span>
+        </div>
+        <p class="proj-desc"><%= p.desc %></p>
+        <div class="proj-tags">
+          <% p.tags.forEach(function(tag) { %>
+            <span class="proj-tag"><%= tag %></span>
+          <% }); %>
+        </div>
+        <div class="proj-links">
+          <a href="<%= p.repo %>" target="_blank" rel="noopener">↗ source</a>
+          <% if (p.live) { %>
+            <a href="<%= p.live %>" target="_blank" rel="noopener">↗ live</a>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</section>
